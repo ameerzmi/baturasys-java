@@ -1,0 +1,17 @@
+# --- NetBeans build output / per-machine settings
+build/
+dist/
+nbproject/private/
+
+# --- Real customer data: NEVER commit
+# payment receipts + DuitNow QR uploaded on your own machine
+uploads/
+# full copy of the real database (names, phones, emails, password hashes)
+database/baturasys_derby.sql
+
+# --- OS / editor clutter
+*~
+Thumbs.db
+desktop.ini
+.DS_Store
+*.log

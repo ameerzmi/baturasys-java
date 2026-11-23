@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <display-name>BaturaSys (Java)</display-name>
+
+    <!-- ===== Configuration (Java equivalent of includes/config.php) ===== -->
+    <!-- Java DB (Apache Derby) database "baturasys" run by NetBeans 8.2
+         (Services > Databases > Java DB). GlassFish started from NetBeans
+         starts the Java DB server automatically.
+         To recreate it, see database/README-database.txt -->
+    <context-param>
+        <param-name>db.url</param-name>
+        <param-value>jdbc:derby://localhost:1527/baturasys;create=true;territory=en_US;collation=TERRITORY_BASED:PRIMARY</param-value>
+    </context-param>
+    <context-param>
+        <param-name>db.user</param-name>
+        <param-value>app</param-value>
+    </context-param>
+    <context-param>
+        <param-name>db.pass</param-name>
+        <param-value>app</param-value>
+    </context-param>
+    <!-- Folder where receipts and the DuitNow QR are stored (outside the
+         deployed app so redeploying never deletes uploads). A relative path is
+         inside your home folder, e.g. C:\Users\<you>\BaturaSys-uploads -->
+    <context-param>
+        <param-name>upload.dir</param-name>
+        <param-value>BaturaSys-uploads</param-value>
+    </context-param>
+
+    <!-- step4.jsp receives the receipt upload (multipart/form-data) -->
+    <servlet>
+        <servlet-name>BookingStep4</servlet-name>
+        <jsp-file>/booking/step4.jsp</jsp-file>
+        <multipart-config>
+            <max-file-size>52428800</max-file-size>
+            <max-request-size>62914560</max-request-size>
+        </multipart-config>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>BookingStep4</servlet-name>
+        <url-pattern>/booking/step4.jsp</url-pattern>
+    </servlet-mapping>
+
+    <!-- The pages use scriptlets only. Turn off JSP Expression Language so the
+         JavaScript template strings (`...${x}...`) are sent to the browser as-is
+         instead of being evaluated on the server. -->
+    <jsp-config>
+        <jsp-property-group>
+            <url-pattern>*.jsp</url-pattern>
+            <el-ignored>true</el-ignored>
+            <page-encoding>UTF-8</page-encoding>
+        </jsp-property-group>
+    </jsp-config>
+
+    <session-config>
+        <session-timeout>120</session-timeout>
+    </session-config>
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+</web-app>

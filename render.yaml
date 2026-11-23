@@ -1,0 +1,13 @@
+# Render.com blueprint: one free web service built from the Dockerfile.
+# Every push to the main branch on GitHub redeploys the review site automatically.
+services:
+  - type: web
+    name: baturasys
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    autoDeploy: true
+    healthCheckPath: /index.jsp
+    envVars:
+      - key: PORT
+        value: "8080"
